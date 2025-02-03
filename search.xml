@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Markdown高级语法</title>
+    <url>/markdown-advance-syntax.html</url>
+    <content><![CDATA[<p>只有少数编辑器支持，或者需要安装相应的扩展渲染，使用前请先预览确认。</p>
+<span id="more"></span>
+
+<h1 id="定义列表"><a href="#定义列表" class="headerlink" title="定义列表"></a>定义列表</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Term 1</span><br><span class="line">Term 2</span><br><span class="line">:   Definition A</span><br><span class="line">:   Definition B</span><br></pre></td></tr></table></figure>
+
+<p>会被编译成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dl&gt;</span><br><span class="line">&lt;dd&gt;Term 1&lt;/dd&gt;</span><br><span class="line">&lt;dd&gt;Term 2&lt;/dd&gt;</span><br><span class="line">&lt;dt&gt;Definition A&lt;dt&gt;</span><br><span class="line">&lt;dt&gt;Definition A&lt;dt&gt;</span><br><span class="line">&lt;/dl&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p>通过<code>[TOC]</code>标记来插入目录。</p>
+<p>在编辑器不支持<code>[TOC]</code>标记的情况下可以使用添加id的方法构建目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">## Directory</span><br><span class="line">* [1.Content one](#chapter1)</span><br><span class="line">* [2.Content two](#chapter2)</span><br><span class="line"></span><br><span class="line">## &lt;span id=&quot;chapter1&quot;&gt;1.Content one&lt;/span&gt;</span><br><span class="line">## &lt;span id=&quot;chapter2&quot;&gt;2.Content two&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="TeX公式"><a href="#TeX公式" class="headerlink" title="TeX公式"></a>TeX公式</h1><p>内联的TeX公式使用一个美元符号标记。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$</span><br></pre></td></tr></table></figure>
+
+<p>会被编译成<br>内联（行内）公式：$\Gamma(n) &#x3D; (n-1)!\quad\forall n\in\mathbb N$</p>
+<p>TeX公式块用独占一行的两个美元符号来标记。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$$\left \lbrace \sum_&#123;i=0&#125;^n i^3 = \frac&#123;(n^2+n)(n+6)&#125;&#123;9&#125; \right \rbrace$$</span><br></pre></td></tr></table></figure>
+
+<p>会被编译成</p>
+<p>$$\left \lbrace \sum_{i&#x3D;0}^n i^3 &#x3D; \frac{(n^2+n)(n+6)}{9} \right \rbrace$$</p>
+<p>如果你的编辑器不支持这个功能，可以手动解决。首先引入mathjax脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之后，在需要插入公式的地方使用 <code>&lt;script&gt;</code> 标签包裹公式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script type=&quot;math/tex&quot;&gt;\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;math/tex; mode=display&quot;&gt;</span><br><span class="line">\Gamma(z) = \int_0^\infty t^&#123;z-1&#125;e^&#123;-t&#125;dt\,.</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>以上公式展示效果，在实际显示过程中，根据网络加载速度不同会有不同的解析展示速度，TeX的语法参考请见<a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference">这里</a>。</p>
+<h1 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h1><p>语法为在代码块开始行后面加入语法声明，如 ```mermaid ，然后可以像这样来画uml时序图：</p>
+<pre class="mermaid">sequenceDiagram
+  Alice->>Bob: Hello Bob,how are you?
+  Note right of Bob: Bob thinks
+  Bob-->>Alice: I am fine thanks! and U?
+  Note left of Alice: SB</pre>
+
+<p>其MarkDown代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\`\`\`mermaid</span><br><span class="line">sequenceDiagram</span><br><span class="line">  Alice-&gt;&gt;Bob: Hello Bob,how are you?</span><br><span class="line">  Note right of Bob: Bob thinks</span><br><span class="line">  Bob--&gt;&gt;Alice: I am fine thanks! and U?</span><br><span class="line">  Note left of Alice: SB</span><br><span class="line">\`\`\` #代码块标识会被解析，实际上写代码块时不用添加转义符“\”</span><br></pre></td></tr></table></figure>
+
+<p>时序图的语法请见 <a href="https://mermaidjs.github.io/sequenceDiagram.html">这里</a> 或 <a href="http://bramp.github.io/js-sequence-diagrams/">这里</a>。</p>
+<p>uml流程图：</p>
+<pre class="mermaid">  graph LR;
+    A-->B & C-->D;</pre>
+
+<p>其实现代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\`\`\`mermaid</span><br><span class="line">graph LR;</span><br><span class="line">  A--&gt;B &amp; C--&gt;D;</span><br><span class="line">\`\`\`</span><br></pre></td></tr></table></figure>
+
+<p>流程图的语法请见 <a href="https://mermaidjs.github.io/flowchart.html">这里</a>， 更复杂点的flowchart可以看 <a href="http://adrai.github.io/flowchart.js/">这里</a> 。</p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ol>
+<li><a href="/how-to-draw-flowchart-with-markdown.html">MarkDown文档中如何画出流程图</a></li>
+<li><a href="https://github.com/wizardforcel/markdown-simple-world">https://github.com/wizardforcel/markdown-simple-world</a></li>
+<li><a href="http://stevenshi.me/2017/06/26/hexo-insert-formula/">http://stevenshi.me/2017/06/26/hexo-insert-formula/</a></li>
+<li><a href="https://blog.csdn.net/u013282174/article/details/80666123">https://blog.csdn.net/u013282174/article/details/80666123</a></li>
+<li><a href="https://www.liuyude.com/How_to_make_your_HEXO_blog_support_handwriting_flowchart.html">https://www.liuyude.com/How_to_make_your_HEXO_blog_support_handwriting_flowchart.html</a></li>
+<li><a href="https://mermaidjs.github.io/">https://mermaidjs.github.io/</a></li>
+</ol>
+<script type="text/javascript" async
+  src="https://unpkg.com/mermaid@9.1.1/dist/mermaid.min.js">
+</script>
+]]></content>
+      <categories>
+        <category>学编程</category>
+      </categories>
+      <tags>
+        <tag>混技能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网页模板 pug 基本语法</title>
+    <url>/hexo-pug-notes.html</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>pug 原名 <code>jade</code> ，因版权问题更名为 <code>pug</code> ，即哈巴狗。与 hexo 默认模块 <code>ejs</code> 一样，pug 也是一个模板引擎，可用于快速的网站开发，当然也可以用于静态博客网站的设计。本站点现时所用主题 manupassant 也使用了 <code>pug</code> 。</p>
+<p>本文针对 Hexo 中使用 <code>pug</code> 的情况为例，说明其基本语法。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># common install</span></span><br><span class="line">npm install pug</span><br><span class="line"></span><br><span class="line"><span class="comment"># install for hexo blog</span></span><br><span class="line">npm install hexo-renderer-pug --save</span><br></pre></td></tr></table></figure>
+
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p>pug 不同于 html ，前者不需要标签的开和闭，如 html 的 <code>&lt;p&gt;Demo&lt;/p&gt;</code> ，在 pug 使用 <code>p Demo</code> 即可。</p>
+<h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h2><p>pug 对空格敏感，有点类似 python 对制表符tab敏感。pug 使用空格作为缩进符，当然用 <code>soft tab</code> 也可行。同一级标签需保证左对齐。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">div</span><br><span class="line">    p Hello, world!</span><br><span class="line">    p Hello, pug.</span><br></pre></td></tr></table></figure>
+
+<p>渲染结果如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hellow, world!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, pug.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>pug 使用 <code>//-</code> 或 <code>//</code> 对代码进行注释，前者注释内容不出现在渲染后的 html 文件中，后者反之。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//- html中不包含此行</span><br><span class="line">// html中会包含此行</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>pug 将标签属性存放于括号 <code>()</code> 内，多个属性之间以 <code>逗号</code> 或 <code>空格</code> 分隔。此外，对于标签的 <code>id</code> 和 <code>class</code> ，pug 使用 <code>#</code> 紧跟标签 <code>id</code> ,使用 <code>.</code> 紧跟标签 <code>class</code> ，可以同时设置多个 <code>class</code> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">h1#title Test title</span><br><span class="line">img#name.class1.class2(src=&quot;/test.png&quot; alt=&quot;test&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>渲染结果如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">&quot;title&quot;</span>&gt;</span>Test title<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">&quot;name&quot;</span> <span class="attr">class</span>=<span class="string">&quot;class1 class2&quot;</span> <span class="attr">src</span>=<span class="string">&quot;/test.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;test&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h2><p>为了方便代码复用，pug 提供了 <code>include</code> 包含功能，以下代码会将 <code>_partial</code> 目录下的 <code>head.pug</code> 文件内容包含到当前调用的位置。有点 C&#x2F;C++ 中内联函数的意思。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html(lang=&#x27;en&#x27;)</span><br><span class="line">    include _partial/head.pug</span><br></pre></td></tr></table></figure>
+
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>下面是一个简单的 <code>base</code> 模板，通过 <code>block</code> 定义了页面头部 <code>head</code> 和内容 <code>body</code> 。块 <code>block</code> 有点类似 C&#x2F;C++ 的抽象函数，需要在继承者中完成定义，填充具体内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//- base.pug</span><br><span class="line">html</span><br><span class="line">    head</span><br><span class="line">        block title</span><br><span class="line">    body</span><br><span class="line">        block content</span><br></pre></td></tr></table></figure>
+
+<p>以下文件使用 <code>extends</code> 继承以上模板，通过 <code>block</code> 覆盖或替换原有块 <code>block</code> 。当然，继承者也可以在原有基础上继续扩展。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//- index.pug</span><br><span class="line">extends base.pug</span><br><span class="line"></span><br><span class="line">block title</span><br><span class="line">    title &quot;Test title&quot;</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">    h1 Hello world!</span><br><span class="line">    block article</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h2><p>pug中通过 <code>- var name = value</code> 的形式定义变量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- var intData = 100</span><br><span class="line">- var boolData = false</span><br><span class="line">- var stringData = &#x27;Test&#x27;</span><br><span class="line">p.int= intData</span><br><span class="line">p.bool= boolData</span><br><span class="line">p.stringData= stringData</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需注意的是，在引用变量时，需要在引用位置加上&#x3D;号，否则会默认将变量名当成普通字符串使用。</p>
+</blockquote>
+<p>如果想要将变量与其它字符串常量或是变量连接在一起，就不能用等号了，而是应该用 <code>#&#123;&#125;</code> ，该符号会对大括号内的变量进行求值和转义，最终得到渲染输出的内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- var girl = &#x27;Lily&#x27;</span><br><span class="line">- var boy = &#x27;Jack&#x27;</span><br><span class="line">p #&#123;girl&#125; is so beautiful!</span><br><span class="line">p And #&#123;boy&#125; is handsome.</span><br></pre></td></tr></table></figure>
+
+<h2 id="条件结构"><a href="#条件结构" class="headerlink" title="条件结构"></a>条件结构</h2><p>pug 的条件语句与其它语言类似，均是如下这般：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- var A = &#123;value: &#x27;Test&#x27;&#125;</span><br><span class="line">- var B = true</span><br><span class="line">if A.value</span><br><span class="line">    p= A.value</span><br><span class="line">else if B</span><br><span class="line">    p= B</span><br><span class="line">else</span><br><span class="line">    p nothing</span><br></pre></td></tr></table></figure>
+
+<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>pug 中使用 <code>each</code> 和 <code>while</code> 实现循环迭代，<code>each</code> 可以返回当前所在项的索引值，默认从 <code>0</code> 开始计数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//- each</span><br><span class="line">ol</span><br><span class="line">    each item in [&#x27;Sun&#x27;, &#x27;Mon&#x27;, &#x27;Tus&#x27;, &#x27;Wen&#x27;, &#x27;Thu&#x27;, &#x27;Fri&#x27;, &#x27;Sat&#x27;]</span><br><span class="line">        li= item</span><br><span class="line"></span><br><span class="line">//- get index of each</span><br><span class="line">- var week = [&#x27;Sun&#x27;, &#x27;Mon&#x27;, &#x27;Tus&#x27;, &#x27;Wen&#x27;, &#x27;Thu&#x27;, &#x27;Fri&#x27;, &#x27;Sat&#x27;]</span><br><span class="line">ol</span><br><span class="line">    each item, index in week</span><br><span class="line">        li= index + &#x27;:&#x27; + item</span><br></pre></td></tr></table></figure>
+<p>渲染成 html 后：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Sun<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Mon<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Tus<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Wen<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Thu<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Fri<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Sat<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>0:Sun<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1:Mon<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2:Tus<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>3:Wen<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>4:Thu<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>5:Fri<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>6:Sat<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>while</code> 调用方式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//- while</span><br><span class="line">- var day = 1</span><br><span class="line">ul</span><br><span class="line">    while day &lt; 7</span><br><span class="line">        li= day++</span><br></pre></td></tr></table></figure>
+
+<h2 id="Minix"><a href="#Minix" class="headerlink" title="Minix"></a>Minix</h2><p><code>mixin</code> 名曰混入，类似其它编程语言中的函数，也是为了代码复用，可带参数或不带参数，定义方式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mixin menu-item(href, name)</span><br><span class="line">    li</span><br><span class="line">        span.dot ●</span><br><span class="line">        a(href=href)= name</span><br></pre></td></tr></table></figure>
+<p>其中，<code>menu-item</code> 为调用时所用名称，可认为是函数名，<code>href</code> 及 <code>name</code> 是参数。同上定义变量所说，<code>a(href=href)= name</code> 中第二个 <code>=</code> 是为了将后面的 <code>name</code> 当作参数来处理，而不是当作字符串 <code>&quot;name&quot;</code> 来处理。</p>
+<p>调用 <code>mixin</code> 定义的代码块，需通过 <code>+</code> 号紧跟 <code>mixin</code> 名称及参数:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+menu-item(&#x27;/Archives&#x27;,&#x27;Archives&#x27;)</span><br><span class="line">+menu-item(&#x27;/About&#x27;,&#x27;About&#x27;)</span><br></pre></td></tr></table></figure>
+<p><code>mixin</code> 之所以称为混入，是因为其语法不局限于函数调用，在 <code>mixin</code> 可以使用块 <code>block</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mixin print(post)</span><br><span class="line">    if block</span><br><span class="line">        block</span><br><span class="line">    else</span><br><span class="line">        p= post</span><br><span class="line"></span><br><span class="line">+print(&quot;no block&quot;)</span><br><span class="line">+print(&quot;&quot;)</span><br><span class="line">    div.box</span><br><span class="line">        p this is the content of block</span><br></pre></td></tr></table></figure>
+<p>对应 html 代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>no block<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>this is the content of block<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><blockquote>
+<p>注意以下 <code>pug</code> 语句中第一行的 <code>.</code> 号。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">script(type=&#x27;text/javascript&#x27;).</span><br><span class="line">    var data = &quot;Test&quot;</span><br><span class="line">    var enable = true</span><br><span class="line">    if enable</span><br><span class="line">        console.log(data)</span><br><span class="line">    else</span><br><span class="line">        console.log(&#x27;nothing&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>对应的 JS 代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script type=<span class="string">&#x27;text/javascript&#x27;</span>&gt;</span><br><span class="line">    <span class="keyword">var</span> data = <span class="string">&quot;Test&quot;</span></span><br><span class="line">    <span class="keyword">var</span> enable = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">if</span> enable</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(data)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;nothing&#x27;</span>)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>对于简单脚本，使用 pug 尚可，复杂的还是单独写到 <code>.js</code> 文件中，然后通过 pug 引用方便一些，引用方式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">script(type=&#x27;text/javascript&#x27;, src=&#x27;/path/to/js&#x27;)</span><br><span class="line"></span><br><span class="line">//- with hexo function url_for</span><br><span class="line">script(type=&#x27;text/javascript&#x27;, src=url_for(theme.js) + &#x27;/ready.js&#x27;)</span><br></pre></td></tr></table></figure>
+<h1 id="hexo-相关"><a href="#hexo-相关" class="headerlink" title="hexo 相关"></a>hexo 相关</h1><p>在 hexo 主题中使用 pug 时，可以通过使用 hexo 提供的全局变量 <code>config</code> ， <code>theme</code> 来分别调用博客根目录下 <code>_config.yml</code> 文件中的参数以及主题根目录下 <code>_config.yml</code> 文件中的参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//- blog config</span><br><span class="line">p= config.description</span><br><span class="line"></span><br><span class="line">//- theme config</span><br><span class="line">p= theme.title</span><br></pre></td></tr></table></figure>
+<p>当然，pug 中可以直接使用 hexo 提供的其它全局变量及辅助函数，使用方法详见 hexo 的文档。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//- head.pug</span><br><span class="line">head</span><br><span class="line">    meta(http-equiv=&#x27;content-type&#x27;, content=&#x27;text/html; charset=utf-8&#x27;)</span><br><span class="line">    meta(content=&#x27;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&#x27;, name=&#x27;viewport&#x27;)</span><br><span class="line">    meta(content=&#x27;yes&#x27;, name=&#x27;apple-mobile-web-app-capable&#x27;)</span><br><span class="line">    meta(content=&#x27;black-translucent&#x27;, name=&#x27;apple-mobile-web-app-status-bar-style&#x27;)</span><br><span class="line">    meta(content=&#x27;telephone=no&#x27;, name=&#x27;format-detection&#x27;)</span><br><span class="line">    meta(name=&#x27;description&#x27;, content=config.description)</span><br><span class="line">    block title</span><br><span class="line">    link(rel=&#x27;stylesheet&#x27;, type=&#x27;text/css&#x27;, href=url_for(theme.css) + &#x27;/style.css&#x27; + &#x27;?v=&#x27; + theme.version)</span><br><span class="line">    link(rel=&#x27;Shortcut Icon&#x27;, type=&#x27;image/x-icon&#x27;, href=url_for(&#x27;favicon.png&#x27;))</span><br><span class="line">    script(type=&#x27;text/javascript&#x27;, src=&#x27;//cdn.bootcss.com/jquery/3.3.1/jquery.min.js&#x27;)</span><br><span class="line">    block more</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//- base.pug</span><br><span class="line">doctype html</span><br><span class="line">html(lang=&#x27;en&#x27;)</span><br><span class="line">    include _partial/head.pug</span><br><span class="line">    block more</span><br><span class="line">        link(rel=&#x27;stylesheet&#x27;, type=&#x27;text/css&#x27;, href=url_for(theme.plugins) + &#x27;/prettify/doxy.css&#x27;)</span><br><span class="line">        script(type=&#x27;text/javascript&#x27;, src=url_for(theme.js) + &#x27;/ready.js&#x27; + &#x27;?v=&#x27; + theme.version, async)</span><br><span class="line">    </span><br><span class="line">    //- body</span><br><span class="line">    body: #container.box</span><br><span class="line">        .h-wrapper</span><br><span class="line">            include _partial/nav-menu.pug</span><br><span class="line">        // article content</span><br><span class="line">        block content</span><br><span class="line"></span><br><span class="line">        include _partial/footer.pug</span><br></pre></td></tr></table></figure>
+<p>其中:</p>
+<ul>
+<li><code>theme.*</code> 为主题配置文件 <code>_config.yml</code> 中的参数</li>
+<li><code>url_for</code> 为 hexo 提供的用于查找资源路径的函数</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>pug 提供了 <code>包含</code> ，<code>继承</code> ，<code>Mixin</code> 等多种方式用于代码复用，语法简洁易懂，除了初学时需花费一些时间学习各种标点符号的含义外，其它倒也没有太大困难。</p>
+<p>当然啦，pug 还有许多其它特性，但就我目前使用情况而言，以上这些便已足够。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://pugjs.org/zh-cn/api/getting-started.html">pugjs.org</a></li>
+<li><a href="https://hexo.io/zh-cn/docs/">hexo.io&#x2F;zh-cn&#x2F;docs&#x2F;</a></li>
+</ol>
+<h2 id="原文出处"><a href="#原文出处" class="headerlink" title="原文出处"></a>原文出处</h2><ul>
+<li>作者：litreily</li>
+<li>链接：<a href="https://juejin.cn/post/6844903668383236104">https://juejin.cn/post/6844903668383236104</a></li>
+<li>来源：掘金</li>
+<li>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学编程</category>
+      </categories>
+      <tags>
+        <tag>博客建站</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的简历</title>
+    <url>/hello-world.html</url>
+    <content><![CDATA[<div style="text-align: center;border:solid 1px 000;margin:2px;"><img src="/attaches\pics\Logo.jpg"  width="660" ></div><br>
+
+<h1 id="Our-Lab"><a href="#Our-Lab" class="headerlink" title="Our Lab"></a>Our Lab</h1><p>Welcome to the website of <strong>Astar</strong>(Advanced Aerostructure Dynamics Research) Lab led by <a href="https://shi.buaa.edu.cn/zhangjiaying/en/index.htm">Dr. Zhang</a>. Our Lab is part of the department of Dynamics and Control at Beihang University.</p>
+<p>Our group is mainly engaged in the following fields:<br>• Morphing Aircraft Systems (morphing structures,  Guidance and Control, etc.);<br>• Nonlinear Dynamics (applied in modeling dynamic system, etc.);<br>• Smart Structures &amp; Control Systems.</p>
+<h1 id="News"><a href="#News" class="headerlink" title="News"></a>News</h1><ul>
+<li>2024-10-01: Three papers are accepted by Aerospace Science and Technology.</li>
+<li>2024-10-01: One paper is accepted by Structures.</li>
+<li>2024-02-05: Happy New Year.</li>
+<li>2024-06-05: Four papers are accepted in ICTAM 2024, Daegu, Korea.</li>
+<li>2024-02-05: Happy New Year.</li>
+<li>2023-09-01: Two papers are presented in ICMSD2023.</li>
+<li>2023-08-15: A review paper is accepted by Electronics Optics &amp; Control.</li>
+<li>2023-05-08: Four papers are presented in <a href="/attaches/docs/confs/NVND2023.pdf">(NVND2023)</a>.</li>
+<li>2021 January, Join in Beihang University.</li>
+</ul>
+<h1 id="Selected-Publications"><a href="#Selected-Publications" class="headerlink" title="Selected Publications"></a>Selected Publications</h1><p>[1] Wang, C., Zhao, Y., Huang, K., <strong>Zhang, J.</strong>, Shaw, A. D., Gu, H., Amoozgar, M.,Friswell, M.I. and  Woods B.K.S. Integration of the passive energy balancing based actuation system into a camber morphing design. Aerospace Science and Technology,128(2024), 107786.<a href="/attaches/docs/journals/AST2024_2.pdf">PDF</a><br>[2] Huang, K., <strong>Zhang, J.</strong>, and Wang, Q., 基于非均匀梁模型的二维柔性机翼固有振动分析 (NATURAL VIBRATION ANALYSIS OF TWO-DIMENSIONAL FLEXIBLE WING BASED ON NON-UNIFORM BEAM MODEL), 力学学报(Chinese Journal of Theoretical and Applied Mechanics).<a href="/attaches/docs/journals/CJTAM2023.pdf">PDF</a><br>[3] <strong>Zhang J.</strong>, Shaw, A.D., Wang, C., Gu, H., Amoozgar, M.R. and Friswell, M.I., Woods B.K.S. Aeroelastic Model and Analysis of an Active Camber Morphing Wing. Aerospace Science and Technology, 111 (2021), 106534. <a href="/attaches/docs/journals/AST2021_1.pdf">PDF</a><br>[4] <strong>Zhang J.</strong>, Shaw, A.D., Amoozgar, M.R., Friswell, M.I. and Woods B.K.S., Bidirectional Torsional Negative Stiffness Mechanism for Energy Balancing Systems. Mechanism and Machine Theory, 131(2019), pp. 261-277. <a href="/attaches/docs/journals/MMT2019.pdf">PDF</a><br>[5] <strong>Zhang J.</strong>, Zhang, C., Hao, L., Nie, R. and Qiu, J., Exploiting the instability of Smart Structure for Reconfiguring. Applied Physics Letters, 111.6 (2017): 064102. <a href="/attaches/docs/journals/APL2017.pdf">PDF</a></p>
+<div style="float:left; border:solid 1px 000;margin:2px;"><img src="/attaches\pics\640.gif"  width="290" ></div>
+<div style="float:left; border:solid 1px 000;margin:2px;"><img src="/attaches\pics\buaa.jpg"  width="415" ></div>
+<div style="float:left; border:solid 1px 000;margin:2px;"><img src="/attaches\pics\beihang_university1.jpg"  width="200" ></div>
+]]></content>
+  </entry>
+</search>
